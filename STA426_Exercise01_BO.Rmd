@@ -9,22 +9,45 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Sampling the log-normal distribution
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+<br>
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+Sampling 100 values from a log-normal distribution with the function `rlnorm` using a **mean of 1** and a **standard deviation of 0.25**
 
-```{r cars}
-summary(cars)
+<br>
+
+```{r out.width=c("50%","50%"), out.height=c("50%","50%"), fig.show='hold'}
+
+# Sampling from a log normal distribution
+x = rlnorm(n = 100, meanlog = 1, sdlog = 0.25)
+
+# Plotting the sample as counts in a histogram
+hist(x, probability = FALSE)
+
+# Plotting the sample as proportions in a histogram 
+hist(x, probability = TRUE)
+
+# plotting the sample as counts on a log-scaled y-axis
+hist.data = hist(x, plot=F)
+hist.data$counts = log(hist.data$counts)
+plot(hist.data, ylab='log(Frequency)')
+
+# plotting the sample as a smooth density curve
+plot(density(x))
+
+
+
+
+
+
+
 ```
 
-## Including Plots
+<br>
 
-You can also embed plots, for example:
+### Resulting distribution
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+The resulting distribution has a **mean of `r signif(mean(x),2)`** and a **variance of `r signif(var(x),2)`**. 
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+<br><br><br><br>
